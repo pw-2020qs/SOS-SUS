@@ -1,0 +1,74 @@
+.page-landing {
+  display: flex;
+  flex-direction: column;
+
+  width: 100vw;
+  height:100vh;
+
+  background-color: #225F98;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+#big-logo {
+  width: 75%;
+}
+
+#slogan-paragraph {
+  font-family: nunito, sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 3rem;
+  color: #225F98;
+  width: 75%;
+}
+
+#menu {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  width: 80%;
+}
+
+.btn-container * {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 7px;
+}
+
+.landing-icons {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  height: 90vh;
+}
+
+.landing-icons img {
+  height: 100%;
+  margin-left: 60%;
+}
+
+@media(max-width: 780px) {
+  .landing-icons {
+    display: none;
+  }
+
+  #big-logo {
+    width: 40%;
+  }
+}
