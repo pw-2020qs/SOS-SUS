@@ -4,10 +4,6 @@ import '../styles/components/HospitalCardComponent.css'
 
 const formularioEnderecoComponent = (props: {
   cep: String;
-  rua: String;
-  bairro: String;
-  complemento: String;
-  raioDeProcura: DoubleRange;
 }) => {
   return (
     <form>
