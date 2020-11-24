@@ -25,3 +25,9 @@
   .marginLeft{
     margin-left: 30%;
   }
+
+  .card-links {
+    display: flex;
+    align-content: space-between;
+    width: 100%;
+}

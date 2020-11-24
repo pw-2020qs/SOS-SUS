@@ -14,7 +14,7 @@ const HospitalCardComponent = (props: {
       <h2><b>{props.name}</b></h2>
       <h4><p>{props.estado}</p></h4>
       <h5>{props.rua}</h5>
-      <div className="row rightLink">
+      <div className="row card-links">
         <div className="column">
           <h6><a href="">{props.link1}</a></h6>
         </div>

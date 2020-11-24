@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import BtnComponent from '../components/BtnComponent';
 // [-23.468226, -46.637794]
 const MapPage: React.FC = () => {
-
   return (
     <div id="page-map">
       <div id="main">
