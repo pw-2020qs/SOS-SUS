@@ -82,11 +82,6 @@
   justify-self: center;
 }
 
-.smallLogo{
-  justify-content: flex-end;
-  width: 40%;
-}
-
 .cardsRow{
   justify-content: flex-start;
 }
@@ -94,7 +89,7 @@
 .gridBotao{
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;  
-  grid-template-rows: auto;
+  grid-template-rows: auto auto auto;
   justify-items: stretch;
 }
 
@@ -103,4 +98,20 @@
   grid-column-end: 6;
   grid-row-start: 1;
   grid-row-end: 3;
+}
+
+.botarMenor{
+  justify-items: stretch;
+}
+
+.alignIconLeft{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 10px;
+}
+
+.iconFormat{
+  width: 60px;
+  height: 60px;
 }

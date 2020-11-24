@@ -14,8 +14,8 @@ const MapPage: React.FC = () => {
     <div id="page-map">
       <div id="main">
         <Sidebar>
-          <div>
-            <img className="smallLogo" id="small-logo" src={smallLogo} alt="small_logo" />
+          <div className="alignIconLeft">
+            <img className ="iconFormat" id="small-logo" src={smallLogo} alt="small_logo" />
           </div>
           <div className="cardsRow">
             <HospitalCardComponent
@@ -46,12 +46,14 @@ const MapPage: React.FC = () => {
                 <BtnComponent>Inserir outro endereço</BtnComponent>
               </Link>
             </div>
+            <div className="botarMenor">
               <Link to='/map'>
                 <BtnComponent><i className="fas fa-arrow-left"></i></BtnComponent>
               </Link>
               <Link to='/map'>
                 <BtnComponent><i className="fas fa-bars"></i></BtnComponent>
               </Link>
+            </div>
           </div>
         </Sidebar>
         <MapComponent latitude={-23.468226} longitude={-46.637794} zoom={16}>
