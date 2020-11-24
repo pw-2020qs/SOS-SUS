@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../styles/components/HospitalCardComponent.css'
 
-const formularioEnderecoComponent = (props: {
-  cep: String;
+const AddressFormComponent = (props: {
+  cep?: String;
 }) => {
   return (
     <form>
@@ -16,4 +16,4 @@ const formularioEnderecoComponent = (props: {
   )
 };
 
-export default formularioEnderecoComponent;
+export default AddressFormComponent;
