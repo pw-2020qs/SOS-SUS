@@ -1,0 +1,85 @@
+#page-map {
+  width: 100vw;
+  height: 100vh;
+
+  position: relative;
+  display: flex;
+}
+
+#page-map #main {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+}
+
+#page-map #main #sidebar{
+  flex-direction: column;
+}
+
+#page-map #main .map-popup .leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+#page-map #main .map-popup .leaflet-popup-content {
+  color: #0089a5;
+  font-size:20px;
+  font-weight: bold;
+  margin: 8px 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#page-map #main .map-popup .leaflet-popup-content a {
+  width: 40px;
+  height: 40px;
+  background: #15c3d6;
+  box-shadow: 17.2868px 27.6589px 41.4884px rgba(18, 119, 139, 0.16);
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-map #main .map-popup .leaflet-popup-tip-container {
+  display: none;
+}
+
+#page-map #main .map-popup .leaflet-popup-close-button {
+  justify-self: center;
+}
+
+.gridBtn{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;  
+  grid-template-rows: auto auto auto;
+  justify-items: stretch;
+}
+
+.btnLarge{
+  grid-column-start: 1;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.btnSmall{
+  justify-items: stretch;
+}
+
+.alignIconRight{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 10px;
+}
+
+.iconFormat{
+  width: 60px;
+  height: 60px;
+}
