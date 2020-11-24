@@ -2,26 +2,28 @@ import React from 'react';
 
 import '../styles/components/HospitalCardComponent.css'
 
-const hospitalCardComponent = (props: {
-  click: String;
+const HospitalCardComponent = (props: {
+  name: String;
   estado: String;
-  rua: React.ReactNode;
-  link1: React.ReactNode;
+  rua: String;
+  link1: String;
+  link2: String;
 }) => {
   return (
-    <div className="card">
-      <div className="container">
-        <h4><b>{props.click}</b></h4>
-        <p>{props.estado}</p>
-        <p>{props.rua}</p>
-        <div className="row rightLink">
-          <div className="column">
-            <p>{props.link1}</p>
-          </div>
+    <div className="card row container">
+      <h2><b>{props.name}</b></h2>
+      <h4><p>{props.estado}</p></h4>
+      <h5>{props.rua}</h5>
+      <div className="row rightLink">
+        <div className="column">
+          <h6><a href="">{props.link1}</a></h6>
+        </div>
+        <div className="column marginLeft">
+          <h6><a href="">{props.link2}</a></h6>
         </div>
       </div>
     </div>
   )
 };
 
-export default hospitalCardComponent;
+export default HospitalCardComponent;

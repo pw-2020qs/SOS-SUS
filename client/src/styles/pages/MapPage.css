@@ -13,6 +13,10 @@
   display: flex;
 }
 
+#page-map #main #sidebar{
+  flex-direction: column;
+}
+
 
 #page-map #main .leaflet-container {
   z-index: 5;
@@ -76,4 +80,13 @@
 
 #page-map #main .map-popup .leaflet-popup-close-button {
   justify-self: center;
+}
+
+.smallLogo{
+  justify-content: flex-end;
+  width: 40%;
+}
+
+.cardsRow{
+  justify-content: flex-start;
 }
