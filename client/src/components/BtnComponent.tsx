@@ -4,11 +4,12 @@ import '../styles/components/BtnComponent.css'
 
 interface btnInterface {
   children?: ReactNode,
+  onClick?: any
 }
 
 const BtnComponent: React.FC<btnInterface> = (props: btnInterface) => {
   return (
-    <button>{props.children}</button>
+    <button onClick={props.onClick}>{props.children}</button>
   );
 }
 

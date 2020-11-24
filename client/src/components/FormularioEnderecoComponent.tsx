@@ -8,7 +8,7 @@ const formularioEnderecoComponent = (props: {
   return (
     <form>
       <label>
-        <p style="line-height: 16px;"><strong>CEP</strong></p>
+        <p><strong>CEP</strong></p>
         <br/>
         <input className="form" type="text" />
       </label>
