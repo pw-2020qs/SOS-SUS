@@ -1,5 +1,5 @@
-import React from 'react';
-import { Map, Marker, TileLayer, Popup } from 'react-leaflet'
+import React, { useState } from 'react';
+import { Map, Marker, TileLayer, Popup} from 'react-leaflet'
 import Footer from '../components/Footer';
 import MapComponent from '../components/MapComponent';
 import HospitalCardComponent from '../components/HospitalCardComponent'
@@ -15,7 +15,7 @@ const MapPage: React.FC = () => {
       <div id="main">
         <Sidebar>
           <div className="alignIconLeft">
-            <img className ="iconFormat" id="small-logo" src={smallLogo} alt="small_logo" />
+            <img className="iconFormat" id="small-logo" src={smallLogo} alt="small_logo" />
           </div>
           <div className="cardsRow">
             <HospitalCardComponent
@@ -65,7 +65,23 @@ const MapPage: React.FC = () => {
         </MapComponent>
       </div>
     </div>
+
   );
 }
 
+const [toggle, setToggle] = useState('open')
+
+const toggleMenu = (toggleStatus: string) => {
+  if (toggleStatus === 'open') return 'close'
+  return 'open'
+}
+
+const handleClick = () => {
+  setToggle(toggleMenu(toggle))
+}
+
 export default MapPage;
+
+
+
+

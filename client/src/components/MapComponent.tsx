@@ -11,17 +11,17 @@ interface MapProps {
 }
 
 const MapComponent: React.FC<MapProps> = (props: MapProps) => {
-  let {latitude, longitude, zoom} = props;
+  let { latitude, longitude, zoom } = props;
 
   return (
-      <Map
-        center={[latitude, longitude]}
-        zoom={zoom}
-        style={{ width: "100%", height: "100%" }}
-      >
-        <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {props.children}
-      </Map>
+    <Map
+      center={[latitude, longitude]}
+      zoom={zoom}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      {props.children}
+    </Map>
   );
 }
 
