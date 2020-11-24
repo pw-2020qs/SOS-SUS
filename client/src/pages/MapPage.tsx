@@ -5,7 +5,6 @@ import MapComponent from '../components/MapComponent';
 import HospitalCardComponent from '../components/HospitalCardComponent'
 import Sidebar from '../components/Sidebar';
 import smallLogo from '../images/logo_SOS_SUS_mini.png';
-
 import '../styles/pages/MapPage.css'
 import { Link } from 'react-router-dom';
 import BtnComponent from '../components/BtnComponent';
@@ -41,17 +40,18 @@ const MapPage: React.FC = () => {
               link2='Copiar endereço'
             />
           </div>
-          <div className="row">
-            <div className="column">
+          <div className="gridBotao">
+            <div className="botaoGrande">
               <Link to='/map'>
                 <BtnComponent>Inserir outro endereço</BtnComponent>
               </Link>
             </div>
-            <div className="column">
               <Link to='/map'>
-                <BtnComponent>Voltar</BtnComponent>
+                <BtnComponent><i className="fas fa-arrow-left"></i></BtnComponent>
               </Link>
-            </div>
+              <Link to='/map'>
+                <BtnComponent><i className="fas fa-bars"></i></BtnComponent>
+              </Link>
           </div>
         </Sidebar>
         <MapComponent latitude={-23.468226} longitude={-46.637794} zoom={16}>
