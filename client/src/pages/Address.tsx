@@ -18,7 +18,7 @@ const Address: React.FC = () => {
             <img className="iconFormat" id="small-logo" src={smallLogo} alt="small_logo" />
           </div>
           <AddressFormComponent/>
-          <div className="gridBtn">
+          <div className="gridBtn grid-template-area">
             <div className="btnLarge">
               <Link to='/map'>
                 <BtnComponent>Procurar hospital</BtnComponent>
