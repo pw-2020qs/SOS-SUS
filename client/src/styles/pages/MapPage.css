@@ -128,19 +128,14 @@
 }
 
 .close .iconFormat {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   align-self: center;
-  margin-right: 5px;
-
-  transition-duration: 0.2s;
 }
 
-.close .alignIconLeft {
-  width: auto;
+.close .alignIconRight {
   display: flex;
-  justify-content: flex-end;
-  padding: 10px;
+  align-items: center;
 }
 
 aside.close {
