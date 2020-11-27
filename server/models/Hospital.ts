@@ -1,4 +1,5 @@
 export interface Hospitals{
+    id: Number;
     nome: String;
     cmes: String;
     endereco: String;
@@ -21,8 +22,9 @@ export interface Hospitals{
     algumaOcupacaoInformada: boolean;
 }
 
-export const hospitais: Hospitals[] = [
+export const hospitalList: Hospitals = 
     {
+        id: 2084287,
         nome: "SANTA CASA DE MISERICORDIA DE ITAPIRA",
         cmes: "2084287",
         endereco: "Rua teste",
@@ -44,4 +46,4 @@ export const hospitais: Hospitals[] = [
         ocupacaoInformada: true,
         algumaOcupacaoInformada: true
     }
-]
+

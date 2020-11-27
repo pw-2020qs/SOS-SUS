@@ -1,18 +1,30 @@
 import express = require('express');
-import { hospitais } from './models/Hospital';
+import { hospitalList } from './models/Hospital';
+import mongoose from 'mongoose';
+import * as hospitalCrud from './services/HospitalService'
 
 
 const app: express.Application = express();
+
+
+const uri: string = "mongodb://sossusadmin:rYHr9CR5pmLk!EP@dbh11.mlab.com:27117/sossus";
+mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
+    if (err) {
+        console.log(err.message);
+    } else {
+        console.log(`Connecting to MONGO`);
+    }
+});
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
 app.get('/teste', function (req, res) {
-    if(req.query.cep == "123"){
+    if (req.query.cep == "123") {
         res.send("Erro")
     }
-    res.send(hospitais);
+    res.send(hospitalList);
 });
 
 app.listen(3000, function () {
