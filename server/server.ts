@@ -1,5 +1,7 @@
 import express = require('express');
-import mongoose from 'mongoose';
+import { hospitais } from './models/Hospital';
+
+
 const app: express.Application = express();
 
 app.get('/', function (req, res) {
@@ -7,7 +9,10 @@ app.get('/', function (req, res) {
 });
 
 app.get('/teste', function (req, res) {
-    res.send('Hello World!');
+    if(req.query.cep == "123"){
+        res.send("Erro")
+    }
+    res.send(hospitais);
 });
 
 app.listen(3000, function () {
