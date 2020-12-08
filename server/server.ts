@@ -1,7 +1,7 @@
 import express = require('express');
 import { hospitalList } from './models/Hospital';
 import mongoose from 'mongoose';
-import * as hospitalCrud from './services/HospitalService'
+import requisicaoPost from './controller/DataSUSService'
 
 
 const app: express.Application = express();
@@ -18,6 +18,10 @@ mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
+});
+
+app.get('/teste2', function (req, res) {
+    res.send(requisicaoPost);
 });
 
 app.get('/teste', function (req, res) {
