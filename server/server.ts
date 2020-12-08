@@ -1,7 +1,7 @@
 import express = require('express');
 import { hospitalList } from './models/Hospital';
 import mongoose from 'mongoose';
-import requisicaoPost from './controller/DataSUSService'
+import * from './controller/DataSUSService';
 
 
 const app: express.Application = express();
@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/teste2', function (req, res) {
-    res.send(requisicaoPost);
+    res.send();
 });
 
 app.get('/teste', function (req, res) {

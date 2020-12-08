@@ -1,45 +1,39 @@
-import { request } from 'http';
- 
-const requisicaoPost = request(
-  {
-    host: 'https://elastic-leitos.saude.gov.br/',
-    port: '',
-    path: '/leito_ocupacao/_search?size=150',
+const request = require('request');
+
+let resposta: String;
+
+class DataSusService {
+    
+
+    constructor(cnesList: String[]){
+
+    }
+
+    retornaListaCNES(cnesList: String[]){
+
+    }
+
+}
+
+
+const options = {
+    url: 'https://elastic-leitos.saude.gov.br/leito_ocupacao/_search?size=150',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Basic dXNlci1hcGktbGVpdG9zOmFRYkxMM1pTdGFUcjM4dGo='
-    }
-  },
-  response => {
-    console.log(response.statusCode); 
+    },
+    json: true,
+    body: {}
   }
-);
- 
-requisicaoPost.write({
-    "query": {
-        "bool": {
-            "must": [
-                {
-                    "match": {
-                        "estadoSigla": "SP"
-                    }
-                },
-                {
-                    "match": {
-                        "estado": "São Paulo"
-                    }
-                },
-                {
-                    "match": {
-                        "dataNotificacaoOcupacao": "2020-11-24"
-                    }
-                }
-            ]
-        }
-    }
-});
- 
-requisicaoPost.end();
 
-export default 
+request.post(options, (err: any, res: { statusCode: any; }, body: String) => {
+    if (err) {
+        return console.log(err);
+    }
+    console.log(`Status: ${res.statusCode}`);
+    console.log(body);
+    resposta = body;
+});
+
+
