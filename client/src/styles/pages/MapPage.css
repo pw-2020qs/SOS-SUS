@@ -116,7 +116,7 @@
   grid-row-end: 3;
 }
 
-.botarMenor{
+.botaoMenor{
   justify-items: stretch;
 }
 
@@ -134,6 +134,10 @@
 
 .close .cards {
   display: none;
+}
+
+.close .gridBotao {
+  margin-bottom: 10px;
 }
 
 .close .gridBotao .botaoGrande {

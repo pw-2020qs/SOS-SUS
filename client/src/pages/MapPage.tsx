@@ -20,11 +20,11 @@ interface hospital {
 const MapPage: React.FC = () => {
   let hosps: Array<hospital> = []
 
-  useEffect(() => {
-    api.get('02611001').then(res => {
-      hosps = res.data
-    })
-  }, [])
+  // useEffect(() => {
+  //   api.get('02611001').then(res => {
+  //     hosps = res.data
+  //   })
+  // }, [])
 
   const [toggle, setToggle] = useState('open')
 
@@ -104,7 +104,7 @@ const MapPage: React.FC = () => {
                 <BtnComponent>Inserir outro endereço</BtnComponent>
               </Link>
             </div>
-            <div className="botarMenor">
+            <div className="botaoMenor">
               <Link to='/'>
                 <BtnComponent><i className="fas fa-arrow-left"></i></BtnComponent>
               </Link>
