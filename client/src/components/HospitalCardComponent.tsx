@@ -13,7 +13,7 @@ const HospitalCardComponent = (props: {
 }) => {
   return (
     <div className="card row container">
-      <h2><b>{props.name}</b></h2>
+      <h2>{props.name}</h2>
       <h4><p>{props.estado}</p></h4>
       <h5>{props.rua}</h5>
       <div className="row card-links">
