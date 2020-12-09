@@ -6,6 +6,8 @@ const HospitalCardComponent = (props: {
   name: String;
   estado: String;
   rua: String;
+  latitude?: number;
+  longitude?: number;
   link1: String;
   link2: String;
 }) => {
