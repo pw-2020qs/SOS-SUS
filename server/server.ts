@@ -54,7 +54,7 @@ function retornaListaCNES(cnesList: String[]){
             }
       }
 
-    const resposta = request.post(options, (err: any, res: { statusCode: any; }, body: string) => {
+    request.post(options, (err: any, res: { statusCode: any; }, body: string) => {
         if (err) {
             console.log(err);
         }
@@ -62,6 +62,6 @@ function retornaListaCNES(cnesList: String[]){
         return body;
     });
 
-    return JSON.stringify(resposta);
+    return JSON.stringify(request);
 }
 
