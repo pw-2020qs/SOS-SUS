@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Marker, Popup} from 'react-leaflet'
 import MapComponent from '../components/MapComponent';
 import HospitalCardComponent from '../components/HospitalCardComponent'
@@ -7,8 +7,12 @@ import smallLogo from '../images/logo_SOS_SUS_mini.png';
 import '../styles/pages/MapPage.css'
 import { Link } from 'react-router-dom';
 import BtnComponent from '../components/BtnComponent';
-// [-23.468226, -46.637794]
+
 const MapPage: React.FC = () => {
+  useEffect(() => {
+
+  }, [])
+
   const [toggle, setToggle] = useState('open')
 
   const toggleMenu = (toggleStatus: string) => {
@@ -20,6 +24,10 @@ const MapPage: React.FC = () => {
     setToggle(toggleMenu(toggle))
   }
 
+  const hospitals = () => {
+    
+  }
+
   return (
     <div id="page-map">
       <div id="main">
@@ -27,7 +35,8 @@ const MapPage: React.FC = () => {
           <div className="alignIconRight">
             <img className="iconFormat" id="small-logo" src={smallLogo} alt="small_logo" />
           </div>
-          <div className="cardsRow">
+          <div className="cards">
+            
             <HospitalCardComponent
               name='Hospital Santa Terezinha'
               estado='São Paulo'
@@ -39,6 +48,20 @@ const MapPage: React.FC = () => {
               name='Hospital Bom Pastor'
               estado='São Paulo'
               rua='Avenida B - Bairro Z, numero 27'
+              link1='Como chegar?'
+              link2='Copiar endereço'
+            />
+            <HospitalCardComponent
+              name='Hospital Trancoso Neto'
+              estado='São Paulo'
+              rua='Avenica C - Bairro Z, Numero 99'
+              link1='Como chegar?'
+              link2='Copiar endereço'
+            />
+            <HospitalCardComponent
+              name='Hospital Trancoso Neto'
+              estado='São Paulo'
+              rua='Avenica C - Bairro Z, Numero 99'
               link1='Como chegar?'
               link2='Copiar endereço'
             />
