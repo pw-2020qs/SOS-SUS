@@ -1,9 +1,10 @@
 import express = require('express');
 import { hospitalList } from './models/Hospital';
 import mongoose = require('mongoose');
-import request = require('request');
+global.fetch = require("node-fetch");
+import retornaListaCNES from './controller/DataSUSService'
 import cors = require('cors');
-//const request = require('request');
+
 
 const app = express();
 
@@ -27,8 +28,8 @@ app.get('/', function (req, res: any) {
     res.send('Hello World!');
 });
 
-app.get('/teste2', function (req, res) {
-    res.send(retornaListaCNES(["2077418", "2077531"]));
+app.get('/teste2', async function (req, res) {
+    res.send(await retornaListaCNES(["2077418", "2077531"]));
 });
 
 app.get('/teste', function (req, res) {
@@ -43,32 +44,29 @@ app.listen(3000, function () {
     console.log('App is listening on port 3000!');
 });
 
-function retornaListaCNES(cnesList: String[]){
-    const options = {
-        url: 'https://elastic-leitos.saude.gov.br/leito_ocupacao/_search?size=150',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic dXNlci1hcGktbGVpdG9zOmFRYkxMM1pTdGFUcjM4dGo='
-        },
-        json: true,
-        body: {
-                "query": {
-                  "terms": {
-                    "cnes": cnesList
-                  }
-                }
+async function retornaListaCNESDecoy(cnesList: String[]) {
+    const url = 'https://elastic-leitos.saude.gov.br/leito_ocupacao/_search?size=150'
+    const bodyRequest = JSON.stringify({
+        "query": {
+            "terms": {
+                "cnes": cnesList
             }
-      }
-
-    request.post(options, (err: any, res: { statusCode: any; }, body: string) => {
-        if (err) {
-            console.log(err);
         }
-        console.log(JSON.stringify(body))
-        return body;
-    });
+    })
 
-    return JSON.stringify(request);
+    const response = await fetch(url,{
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic dXNlci1hcGktbGVpdG9zOmFRYkxMM1pTdGFUcjM4dGo='
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: bodyRequest
+    })    
+    return response.json();
 }
 
