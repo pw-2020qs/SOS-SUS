@@ -2,12 +2,14 @@ import express = require('express');
 import { hospitalList } from './models/Hospital';
 import mongoose = require('mongoose');
 import request = require('request');
+import cors = require('cors');
 //const request = require('request');
 
-const app: express.Application = express();
-
+const app = express();
 
 const uri: string = "mongodb://sossusadmin:rYHr9CR5pmLk!EP@dbh11.mlab.com:27117/sossus";
+
+app.use(cors())
 
 mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
     if (err) {
@@ -17,7 +19,11 @@ mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
     }
 });
 
-app.get('/', function (req, res) {
+app.get('/teste3', (req, res) => {
+    res.send("teste")
+})
+
+app.get('/', function (req, res: any) {
     res.send('Hello World!');
 });
 
@@ -29,6 +35,7 @@ app.get('/teste', function (req, res) {
     if (req.query.cep == "123") {
         res.send("Erro")
     }
+    console.log(hospitalList)
     res.send(hospitalList);
 });
 

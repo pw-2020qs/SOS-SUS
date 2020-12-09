@@ -30,3 +30,8 @@
   align-content: space-between;
   width: 100%;
 }
+
+h2 {
+  font-size: 16pt;
+  font-weight: bolder;
+}

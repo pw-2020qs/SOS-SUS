@@ -7,24 +7,24 @@ import smallLogo from '../images/logo_SOS_SUS_mini.png';
 import '../styles/pages/MapPage.css'
 import { Link } from 'react-router-dom';
 import BtnComponent from '../components/BtnComponent';
-import api from '../utils/api';
+import api from '../services/api';
 
 interface hospital {
-  name: string,
-  estado: string,
-  rua: string,
-  latitude: number,
-  longitude: number,
+  nome: string,
+  endereco: string,
+  estado: string
 }
 
 const MapPage: React.FC = () => {
-  let hosps: Array<hospital> = []
+  const [hosps, setHosps] = useState([])
 
-  // useEffect(() => {
-  //   api.get('02611001').then(res => {
-  //     hosps = res.data
-  //   })
-  // }, [])
+  useEffect(() => {
+    api.get('teste').then(res => {
+      setHosps(res.data)
+    })
+  }, [])
+
+  console.log(hosps)
 
   const [toggle, setToggle] = useState('open')
 
@@ -37,22 +37,6 @@ const MapPage: React.FC = () => {
     setToggle(toggleMenu(toggle))
   }
 
-  const hospitals = () => {
-    hosps.map(hosp => {
-      return (
-        <HospitalCardComponent
-          name={hosp.name}
-          estado={hosp.estado}
-          rua={hosp.rua}
-          latitude={hosp.latitude}
-          longitude={hosp.longitude}
-          link1='Como chegar?'
-          link2='Copiar endereço'
-        />
-      )
-    })
-  }
-
   return (
     <div id="page-map">
       <div id="main">
@@ -61,7 +45,20 @@ const MapPage: React.FC = () => {
             <img className="iconFormat" id="small-logo" src={smallLogo} alt="small_logo" />
           </div>
           <div className="cards">
-            {hospitals}
+            {
+              hosps.map((hosp: hospital) => {
+                return (
+                  <HospitalCardComponent
+                    name={hosp.nome}
+                    estado={hosp.estado}
+                    rua={hosp.endereco}
+                    link1='Como chegar?'
+                    link2='Copiar endereço'
+                  />
+                )
+              })
+            }
+            
             {/* <HospitalCardComponent
               name='Hospital Santa Terezinha'
               estado='São Paulo'
