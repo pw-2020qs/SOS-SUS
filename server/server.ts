@@ -3,14 +3,16 @@ import { hospitalList } from './models/Hospital';
 import mongoose = require('mongoose');
 global.fetch = require("node-fetch");
 import retornaListaCNES from './controller/DataSUSService'
+import cors = require('cors');
 
 
-const app: express.Application = express();
-
+const app = express();
 
 const uri: string = "mongodb://sossusadmin:rYHr9CR5pmLk!EP@dbh11.mlab.com:27117/sossus";
 
-mongoose.connect(uri, { useNewUrlParser: true }, (err: any) => {
+app.use(cors())
+
+mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
     if (err) {
         console.log(err.message);
     } else {
@@ -18,7 +20,11 @@ mongoose.connect(uri, { useNewUrlParser: true }, (err: any) => {
     }
 });
 
-app.get('/', function (req, res) {
+app.get('/teste3', (req, res) => {
+    res.send("teste")
+})
+
+app.get('/', function (req, res: any) {
     res.send('Hello World!');
 });
 
@@ -30,6 +36,7 @@ app.get('/teste', function (req, res) {
     if (req.query.cep == "123") {
         res.send("Erro")
     }
+    console.log(hospitalList)
     res.send(hospitalList);
 });
 

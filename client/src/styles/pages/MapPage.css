@@ -82,10 +82,24 @@
   justify-self: center;
 }
 
-.cardsRow{
+.cards {
+  padding: 0 10%;
   justify-content: flex-start;
   display: initial;
-  width: 80%;
+  width: 90%;
+  height: 500px;
+  
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
 .gridBotao{
@@ -102,7 +116,7 @@
   grid-row-end: 3;
 }
 
-.botarMenor{
+.botaoMenor{
   justify-items: stretch;
 }
 
@@ -118,8 +132,12 @@
   height: 60px;
 }
 
-.close .cardsRow {
+.close .cards {
   display: none;
+}
+
+.close .gridBotao {
+  margin-bottom: 10px;
 }
 
 .close .gridBotao .botaoGrande {

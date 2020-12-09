@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Marker, Popup} from 'react-leaflet'
+import React, { useEffect, useState } from 'react';
+import { Marker, Popup } from 'react-leaflet'
 import MapComponent from '../components/MapComponent';
 import HospitalCardComponent from '../components/HospitalCardComponent'
 import Sidebar from '../components/Sidebar';
@@ -7,15 +7,32 @@ import smallLogo from '../images/logo_SOS_SUS_mini.png';
 import '../styles/pages/MapPage.css'
 import { Link } from 'react-router-dom';
 import BtnComponent from '../components/BtnComponent';
-// [-23.468226, -46.637794]
+import api from '../services/api';
+
+interface hospital {
+  nome: string,
+  endereco: string,
+  estado: string
+}
+
 const MapPage: React.FC = () => {
+  const [hosps, setHosps] = useState([])
+
+  useEffect(() => {
+    api.get('teste').then(res => {
+      setHosps(res.data)
+    })
+  }, [])
+
+  console.log(hosps)
+
   const [toggle, setToggle] = useState('open')
 
   const toggleMenu = (toggleStatus: string) => {
     if (toggleStatus === 'open') return 'close'
     return 'open'
   }
-  
+
   const handleClick = () => {
     setToggle(toggleMenu(toggle))
   }
@@ -23,12 +40,26 @@ const MapPage: React.FC = () => {
   return (
     <div id="page-map">
       <div id="main">
-        <Sidebar toggle={ toggle }>
+        <Sidebar toggle={toggle}>
           <div className="alignIconRight">
             <img className="iconFormat" id="small-logo" src={smallLogo} alt="small_logo" />
           </div>
-          <div className="cardsRow">
-            <HospitalCardComponent
+          <div className="cards">
+            {
+              hosps.map((hosp: hospital) => {
+                return (
+                  <HospitalCardComponent
+                    name={hosp.nome}
+                    estado={hosp.estado}
+                    rua={hosp.endereco}
+                    link1='Como chegar?'
+                    link2='Copiar endereço'
+                  />
+                )
+              })
+            }
+            
+            {/* <HospitalCardComponent
               name='Hospital Santa Terezinha'
               estado='São Paulo'
               rua='Avenida A - Bairro Y, numero 27'
@@ -49,6 +80,20 @@ const MapPage: React.FC = () => {
               link1='Como chegar?'
               link2='Copiar endereço'
             />
+            <HospitalCardComponent
+              name='Hospital Trancoso Neto'
+              estado='São Paulo'
+              rua='Avenica C - Bairro Z, Numero 99'
+              link1='Como chegar?'
+              link2='Copiar endereço'
+            />
+            <HospitalCardComponent
+              name='Hospital Trancoso Neto'
+              estado='São Paulo'
+              rua='Avenica C - Bairro Z, Numero 99'
+              link1='Como chegar?'
+              link2='Copiar endereço'
+            /> */}
           </div>
           <div className="gridBotao">
             <div className="botaoGrande">
@@ -56,7 +101,7 @@ const MapPage: React.FC = () => {
                 <BtnComponent>Inserir outro endereço</BtnComponent>
               </Link>
             </div>
-            <div className="botarMenor">
+            <div className="botaoMenor">
               <Link to='/'>
                 <BtnComponent><i className="fas fa-arrow-left"></i></BtnComponent>
               </Link>
