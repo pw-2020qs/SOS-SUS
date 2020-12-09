@@ -1,7 +1,8 @@
 import express = require('express');
 import { hospitalList } from './models/Hospital';
-import mongoose from 'mongoose';
-const request = require('request');
+import mongoose = require('mongoose');
+import request = require('request');
+//const request = require('request');
 
 const app: express.Application = express();
 
@@ -36,7 +37,6 @@ app.listen(3000, function () {
 });
 
 function retornaListaCNES(cnesList: String[]){
-
     const options = {
         url: 'https://elastic-leitos.saude.gov.br/leito_ocupacao/_search?size=150',
         method: 'POST',
@@ -54,12 +54,14 @@ function retornaListaCNES(cnesList: String[]){
             }
       }
 
-    request.post(options, (err: any, res: { statusCode: any; }, body: String) => {
+    request.post(options, (err: any, res: { statusCode: any; }, body: string) => {
         if (err) {
-            return console.log(err);
+            console.log(err);
         }
-        console.log(body);
+        console.log(JSON.stringify(body))
         return body;
-    });        
+    });
+
+    return JSON.stringify(request);
 }
 
