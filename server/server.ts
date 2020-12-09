@@ -4,6 +4,8 @@ import mongoose = require('mongoose');
 global.fetch = require("node-fetch");
 import retornaListaCNES from './controller/DataSUSService'
 import cors = require('cors');
+import { CacheSchema } from './controller/Cache'
+const cacheModel = require('./controller/Cache')
 
 
 const app = express();
@@ -22,6 +24,27 @@ mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
 
 app.get('/teste3', (req, res) => {
     res.send("teste")
+})
+
+app.get('/testeBancoConsulta', async (req, res) => {
+        const resultado = await cacheModel.find({idLocalizacao: req.query.id})
+
+    try{
+        res.send(resultado)
+    } catch (err) {
+        res.status(500).send(err);
+    }    
+})
+
+app.get('/testeBancoGrava', async (req, res) => {
+    const payloadGrava = new cacheModel({idLocalizacao: req.query.id, hospitalData: hospitalList})
+
+    try{
+        await payloadGrava.save();
+        res.send(payloadGrava);
+    } catch (err) {
+        res.status(500).send(err);
+    }    
 })
 
 app.get('/', function (req, res: any) {
@@ -43,30 +66,4 @@ app.get('/teste', function (req, res) {
 app.listen(3000, function () {
     console.log('App is listening on port 3000!');
 });
-
-async function retornaListaCNESDecoy(cnesList: String[]) {
-    const url = 'https://elastic-leitos.saude.gov.br/leito_ocupacao/_search?size=150'
-    const bodyRequest = JSON.stringify({
-        "query": {
-            "terms": {
-                "cnes": cnesList
-            }
-        }
-    })
-
-    const response = await fetch(url,{
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers:{
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic dXNlci1hcGktbGVpdG9zOmFRYkxMM1pTdGFUcjM4dGo='
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: bodyRequest
-    })    
-    return response.json();
-}
 
