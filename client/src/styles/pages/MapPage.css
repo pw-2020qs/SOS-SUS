@@ -93,6 +93,15 @@
   scrollbar-width: thin;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
 .gridBotao{
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
