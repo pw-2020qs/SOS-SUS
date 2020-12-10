@@ -22,8 +22,9 @@ mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
     }
 });
 
-app.get('/teste3', (req, res) => {
-    res.send("teste")
+app.get('/chamada', (req, res) => {
+    console.log(`lat: ${req.query.lat} long: ${req.query.long}`)
+    res.send(hospitalList)
 })
 
 app.get('/testeBancoConsulta', async (req, res) => {
@@ -63,7 +64,7 @@ app.get('/teste', function (req, res) {
     res.send(hospitalList);
 });
 
-app.listen(3000, function () {
-    console.log('App is listening on port 3000!');
+app.listen(3333, function () {
+    console.log('App is listening on port 3333!');
 });
 
