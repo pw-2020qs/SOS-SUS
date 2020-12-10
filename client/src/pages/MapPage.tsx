@@ -17,9 +17,15 @@ interface hospital {
 
 const MapPage: React.FC = () => {
   const [hosps, setHosps] = useState([])
+  let lat: number, long: number;
+
+  navigator.geolocation.getCurrentPosition((position) => {
+    lat = position.coords.latitude
+    long = position.coords.longitude
+  })
 
   useEffect(() => {
-    api.get('teste').then(res => {
+    api.get(`chamada?lat=${lat}&long=${long}`).then(res => {
       setHosps(res.data)
     })
   }, [])
