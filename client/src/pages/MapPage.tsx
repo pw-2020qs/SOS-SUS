@@ -17,20 +17,21 @@ interface hospital {
 
 const MapPage: React.FC = () => {
   const [hosps, setHosps] = useState([])
-  let lat: number, long: number;
-
-  navigator.geolocation.getCurrentPosition((position) => {
-    lat = position.coords.latitude
-    long = position.coords.longitude
-  })
+  const [lat, setLat] = useState(0)
+  const [long, setLong] = useState(0)
+  
+  
+  useEffect(() => navigator.geolocation.getCurrentPosition((position) => {
+    setLat(position.coords.latitude)
+    setLong(position.coords.longitude)
+    console.log(`lat: ${lat} long: ${long}`)
+  }), [])
 
   useEffect(() => {
-    api.get(`chamada?lat=${lat}&long=${long}`).then(res => {
+    api.get(`chamada?lat=${lat}&long=${lat}`).then(res => {
       setHosps(res.data)
     })
-  }, [])
-
-  console.log(hosps)
+  }, [lat, long])
 
   const [toggle, setToggle] = useState('open')
 
@@ -55,6 +56,7 @@ const MapPage: React.FC = () => {
               hosps.map((hosp: hospital) => {
                 return (
                   <HospitalCardComponent
+                    key={hosp.nome}
                     name={hosp.nome}
                     estado={hosp.estado}
                     rua={hosp.endereco}
