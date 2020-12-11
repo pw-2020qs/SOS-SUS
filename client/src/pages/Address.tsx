@@ -36,13 +36,20 @@ const Address: React.FC = () => {
   }, [redirect])
 
   const getLatLong = React.useCallback(async () => {
+    
     const res = await google(CEP)
 
     const data = res.data
 
     const results: Array<CEPResponse> = data.results
+    if(results.length > 0) {
+      return results[0].geometry.location;
+    }
 
-    return results[0].geometry.location;
+    return {
+      lat: 0,
+      lng: 0
+    }
   }, [CEP])
 
   const onBlur = async () => {
