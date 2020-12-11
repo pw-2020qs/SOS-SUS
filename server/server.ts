@@ -4,9 +4,12 @@ import mongoose = require('mongoose');
 global.fetch = require("node-fetch");
 import retornaListaCNES from './controller/DataSUSService'
 import cors = require('cors');
+<<<<<<< HEAD
 import { CacheSchema } from './controller/Cache'
 const cacheModel = require('./controller/Cache')
 
+=======
+>>>>>>> 2b2eb73... CEP to coords and map recenter
 
 const app = express();
 

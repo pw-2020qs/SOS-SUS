@@ -5,7 +5,7 @@ import HospitalCardComponent from '../components/HospitalCardComponent'
 import Sidebar from '../components/Sidebar';
 import smallLogo from '../images/logo_SOS_SUS_mini.png';
 import '../styles/pages/MapPage.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import BtnComponent from '../components/BtnComponent';
 import api from '../services/api';
 
@@ -15,20 +15,33 @@ interface hospital {
   estado: string
 }
 
+interface queryParams {
+  lat: string,
+  long: string
+}
+
 const MapPage: React.FC = () => {
   const [hosps, setHosps] = useState([])
   const [lat, setLat] = useState(0)
   const [long, setLong] = useState(0)
-  
-  
-  useEffect(() => navigator.geolocation.getCurrentPosition((position) => {
-    setLat(position.coords.latitude)
-    setLong(position.coords.longitude)
-    console.log(`lat: ${lat} long: ${long}`)
-  }), [])
+  const history = useHistory()
+  const queryParams = new URLSearchParams(window.location.search)
 
   useEffect(() => {
-    api.get(`chamada?lat=${lat}&long=${lat}`).then(res => {
+    if (queryParams.has("lat") && queryParams.has("long")) {
+      setLat(Number(queryParams.get("lat")))
+      setLong(Number(queryParams.get("long")))
+    } else {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLat(position.coords.latitude)
+        setLong(position.coords.longitude)
+        console.log(`lat: ${lat} long: ${long}`)
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    api.get(`chamada?lat=${lat}&long=${long}`).then(res => {
       setHosps(res.data)
     })
   }, [lat, long])
@@ -66,7 +79,7 @@ const MapPage: React.FC = () => {
                 )
               })
             }
-            
+
             {/* <HospitalCardComponent
               name='Hospital Santa Terezinha'
               estado='São Paulo'
@@ -110,17 +123,13 @@ const MapPage: React.FC = () => {
               </Link>
             </div>
             <div className="botaoMenor">
-              <Link to='/'>
-                <BtnComponent><i className="fas fa-arrow-left"></i></BtnComponent>
-              </Link>
-              <Link to='/map'>
-                <BtnComponent onClick={handleClick}><i className="fas fa-bars"></i></BtnComponent>
-              </Link>
+              <BtnComponent onClick={history.goBack}><i className="fas fa-arrow-left"></i></BtnComponent>
+              <BtnComponent onClick={handleClick}><i className="fas fa-bars"></i></BtnComponent>
             </div>
           </div>
         </Sidebar>
-        <MapComponent latitude={-23.468226} longitude={-46.637794} zoom={16}>
-          <Marker key={"a123"} position={[-23.468226, -46.637794]}>
+        <MapComponent latitude={lat} longitude={long} zoom={16}>
+          <Marker key={"a123"} position={[lat, long]}>
             <Popup closeButton={true} minWidth={240} maxWidth={240} className="map-popup">
               nome teste
           </Popup>

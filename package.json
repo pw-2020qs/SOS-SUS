@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "axios": "^0.21.0"
+    "@types/puppeteer": "^5.4.2",
+    "axios": "^0.21.0",
+    "puppeteer": "^5.5.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0"
