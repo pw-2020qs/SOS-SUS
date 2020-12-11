@@ -36,20 +36,19 @@ const Address: React.FC = () => {
   }, [redirect])
 
   const getLatLong = React.useCallback(async () => {
-    
+    // Resposta do Axios
     const res = await google(CEP)
-
+    
+    // Atributo "data" que vem do axios (contém a resposta pura da API)
     const data = res.data
 
+    // Campo results da API traz infos necessarias
     const results: Array<CEPResponse> = data.results
     if(results.length > 0) {
       return results[0].geometry.location;
     }
 
-    return {
-      lat: 0,
-      lng: 0
-    }
+    return { lat: 0, lng: 0 }
   }, [CEP])
 
   const onBlur = async () => {
@@ -61,7 +60,6 @@ const Address: React.FC = () => {
 
   const clickBtn = async () => {
     setRedirect(true)
-
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

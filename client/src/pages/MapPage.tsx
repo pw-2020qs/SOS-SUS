@@ -15,11 +15,6 @@ interface hospital {
   estado: string
 }
 
-interface queryParams {
-  lat: string,
-  long: string
-}
-
 const MapPage: React.FC = () => {
   const [hosps, setHosps] = useState([])
   const [lat, setLat] = useState(0)
@@ -42,6 +37,9 @@ const MapPage: React.FC = () => {
 
   useEffect(() => {
     api.get(`chamada?lat=${lat}&long=${long}`).then(res => {
+      if(res.data === []) {
+        alert("Não conseguimos encontrar dados para sua cidade")
+      }
       setHosps(res.data)
     })
   }, [lat, long])
@@ -79,42 +77,6 @@ const MapPage: React.FC = () => {
                 )
               })
             }
-
-            {/* <HospitalCardComponent
-              name='Hospital Santa Terezinha'
-              estado='São Paulo'
-              rua='Avenida A - Bairro Y, numero 27'
-              link1='Como chegar?'
-              link2='Copiar endereço'
-            />
-            <HospitalCardComponent
-              name='Hospital Bom Pastor'
-              estado='São Paulo'
-              rua='Avenida B - Bairro Z, numero 27'
-              link1='Como chegar?'
-              link2='Copiar endereço'
-            />
-            <HospitalCardComponent
-              name='Hospital Trancoso Neto'
-              estado='São Paulo'
-              rua='Avenica C - Bairro Z, Numero 99'
-              link1='Como chegar?'
-              link2='Copiar endereço'
-            />
-            <HospitalCardComponent
-              name='Hospital Trancoso Neto'
-              estado='São Paulo'
-              rua='Avenica C - Bairro Z, Numero 99'
-              link1='Como chegar?'
-              link2='Copiar endereço'
-            />
-            <HospitalCardComponent
-              name='Hospital Trancoso Neto'
-              estado='São Paulo'
-              rua='Avenica C - Bairro Z, Numero 99'
-              link1='Como chegar?'
-              link2='Copiar endereço'
-            /> */}
           </div>
           <div className="gridBotao">
             <div className="botaoGrande">
