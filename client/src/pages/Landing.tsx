@@ -10,8 +10,6 @@ import '../styles/pages/Landing.css'
 import Footer from '../components/Footer';
 
 const Landing: React.FC = () => {
-
-
   return (
     <div className="page-landing">
       <div className="main">
