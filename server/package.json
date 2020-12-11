@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "start": "npx ts-node server.ts"
   },
   "author": "",
   "description": "",
