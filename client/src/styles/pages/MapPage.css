@@ -17,7 +17,6 @@
   flex-direction: column;
 }
 
-
 #page-map #main .leaflet-container {
   z-index: 5;
 }

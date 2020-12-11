@@ -11,12 +11,9 @@
   transition-duration: 0.5s;
 }
 
-
-
 .close {
   width: 50px;
 }
-
 
 @media(max-width: 780px) {
   .app-sidebar {

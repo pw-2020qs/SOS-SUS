@@ -5,17 +5,20 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "start": "npx ts-node server.ts"
   },
   "author": "",
   "description": "",
   "dependencies": {
     "@types/express": "^4.17.9",
-    "@types/node-fetch": "^2.5.7",
     "@types/node": "^14.14.11",
+    "@types/node-fetch": "^2.5.7",
     "@types/request": "^2.48.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fast-csv": "^4.3.6",
+    "fs": "0.0.1-security",
     "mongoose": "^5.10.16",
     "node-fetch": "^2.6.1",
     "request": "^2.88.2",
