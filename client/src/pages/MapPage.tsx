@@ -5,7 +5,7 @@ import HospitalCardComponent from '../components/HospitalCardComponent'
 import Sidebar from '../components/Sidebar';
 import smallLogo from '../images/logo_SOS_SUS_mini.png';
 import '../styles/pages/MapPage.css'
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import BtnComponent from '../components/BtnComponent';
 import api from '../services/api';
 
@@ -74,6 +74,8 @@ const MapPage: React.FC = () => {
                     name={hosp.nome}
                     estado={hosp.estado}
                     rua={hosp.endereco}
+                    latitude={hosp.lat}
+                    longitude={hosp.long}
                     link1='Como chegar?'
                     link2='Copiar endereço'
                   />
