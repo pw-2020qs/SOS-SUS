@@ -12,7 +12,10 @@ import api from '../services/api';
 interface hospital {
   nome: string,
   endereco: string,
-  estado: string
+  estado: string,
+  lat: number,
+  long: number,
+  CMES: string
 }
 
 const MapPage: React.FC = () => {
@@ -37,7 +40,7 @@ const MapPage: React.FC = () => {
 
   useEffect(() => {
     api.get(`chamada?lat=${lat}&long=${long}`).then(res => {
-      if(res.data === []) {
+      if (res.data === []) {
         alert("Não conseguimos encontrar dados para sua cidade")
       }
       setHosps(res.data)
@@ -93,9 +96,20 @@ const MapPage: React.FC = () => {
         <MapComponent latitude={lat} longitude={long} zoom={16}>
           <Marker key={"a123"} position={[lat, long]}>
             <Popup closeButton={true} minWidth={240} maxWidth={240} className="map-popup">
-              nome teste
-          </Popup>
+              Você está aqui
+            </Popup>
           </Marker>
+          {
+            hosps.map((hosp: hospital) => {
+              return (
+                <Marker key={hosp.CMES} position={[hosp.lat, hosp.long]}>
+                  <Popup closeButton={true} minWidth={240} maxWidth={240} className="map-popup">
+                    {hosp.nome}
+                  </Popup>
+                </Marker>
+              )
+            })
+          }
         </MapComponent>
       </div>
     </div>
