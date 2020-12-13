@@ -5,6 +5,8 @@ global.fetch = require("node-fetch");
 import { hospitalList } from './constants/hospitalList';
 import retornaListaCNES from './controller/DataSUSService'
 const cacheModel = require('./controller/Cache')
+import scheduler = require('node-schedule');
+import atualizaDadosEstado from './controller/Scheduler'
 
 const app = express();
 
@@ -65,3 +67,14 @@ app.get('/teste', function (req, res) {
 app.listen(3333, function () {
   console.log('App is listening on port 3333!');
 });
+
+const listaEstados: string[] = ["SP","RJ","ES","BA","MG","PR","PA","RS"]
+
+scheduler.scheduleJob('0 * * * *', async function () {
+  listaEstados.forEach(await async function(estados){
+    await atualizaDadosEstado(estados);
+  })
+  
+})
+
+
