@@ -1,14 +1,14 @@
-import { AddressComponents, AddressTypes, LocationTypes, StatusValues } from "./GeocodingTypes"
+import { AddressComponent, AddressType, LocationType, StatusValue } from "./GeocodingTypes"
 
-type Results = {
-  address_components: AddressComponents[]
+type Result = {
+  address_components: AddressComponent[]
   formatted_address: String 
   geometry: {
     location: {
       lat: Number
       lng: Number
     }
-    location_type: LocationTypes
+    location_type: LocationType
     viewport: {
       northeast: {
         lat: Number
@@ -25,7 +25,7 @@ type Results = {
     compound_code: String
     global_code: String
   }
-  types: AddressTypes[]
+  types: AddressType[]
 }
 
 export type ReverseGeocodingResponse = {
@@ -33,6 +33,6 @@ export type ReverseGeocodingResponse = {
     compound_code: String
     global_code: String
   }
-  results: Results[]
-  status: StatusValues
+  results: Result[]
+  status: StatusValue
 }
