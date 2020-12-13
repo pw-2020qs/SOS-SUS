@@ -58,13 +58,20 @@ export default async function atualizaDadosEstado(estado: String){
 
     let estadosObject: DataSusResponse  = await retornaListaEstado(estado) as DataSusResponse;
     let hospitaisLista: HospitalUnit[] = estadosObject.hits.hits
+    let hospitaisListaGrava: HospitalUnit[] = [];
     let collectionName: string = 'cnes_'+estado
 
     const hospitalModel = mongoose.model(collectionName,HospitalSchema)
 
-    await dropCollection(hospitalModel)
+    await dropCollection(hospitalModel)    
 
-    hospitaisLista.forEach(await async function(hospital){  
+    hospitaisLista.forEach((hospital)=>{
+        if(!hospitaisListaGrava.includes(hospital)){
+            hospitaisListaGrava.push(hospital)
+        }
+    })
+
+    hospitaisListaGrava.forEach(await async function(hospital){  
         let payload = await new hospitalModel(hospital)
         payload.save();
     })
