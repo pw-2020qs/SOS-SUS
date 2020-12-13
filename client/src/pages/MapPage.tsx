@@ -70,7 +70,7 @@ const MapPage: React.FC = () => {
               hosps.map((hosp: hospital) => {
                 return (
                   <HospitalCardComponent
-                    key={hosp.nome}
+                    key={hosp.CMES}
                     name={hosp.nome}
                     estado={hosp.estado}
                     rua={hosp.endereco}
