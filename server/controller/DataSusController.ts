@@ -3,9 +3,15 @@ import * as GoogleMapsService from "../services/GoogleMapsService";
 import * as DataSusService from "../services/DataSusService";
 import * as HospitalOccupancyService from "../services/HospitalOccupancyService";
 import { FilledHospitalOccupancy, HospitalOccupancy } from "../commons/DataSusResponse";
+import { hospitalList } from '../constants/hospitalList';
 
 export const healthCheck = (req: Request, res: Response) => {
   res.send('Hello World!').status(200);
+}
+
+export const test = (req: Request, res: Response) => {
+  console.log(`lat: ${req.query.lat} long: ${req.query.long}`);
+  res.send(hospitalList).status(200);
 }
 
 export const getCensList = async (req: Request, res: Response) => {
