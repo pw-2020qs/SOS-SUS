@@ -20,6 +20,8 @@ export async function getCnes(
       }
     }
   );
+  
+  console.log('Requested Address from Data SUS for:', state, stateInitals, city);
 
   const response = await fetch(
     url,

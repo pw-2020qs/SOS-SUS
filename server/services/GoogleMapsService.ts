@@ -6,6 +6,7 @@ const googleGeocodeApiUrl = "https://maps.googleapis.com/maps/api/geocode/json";
 const googleDistanceMatrixApiUrl = "https://maps.googleapis.com/maps/api/distancematrix/json";
 
 export async function getAddressByLatLong(lat: String, long: String): Promise<ReverseGeocodingResponse> {
+  console.log('Requesting Address from google for:', lat, long);
   return fetch(buildFetchAddressByLatLongUrl(lat, long)) 
     .then(res => res.json())
     .catch((err) => {
@@ -14,6 +15,7 @@ export async function getAddressByLatLong(lat: String, long: String): Promise<Re
 }
 
 export async function getLatLongByAddress(addressNumber: String, address: String): Promise<AddressGeocodingResponse> {
+  console.log('Requesting Lat Long from google for:', address, addressNumber);
   return fetch(buildFetchLatLongByAddressUrl(addressNumber, address))
     .then(res => res.json())
     .catch((err) => {
@@ -27,6 +29,9 @@ export async function getDistanceBetweenPoints(
   destinationLat: String,
   destinationLong: String
 ): Promise<DistanceMatrixResponse> {
+  console.log('Requesting Distance Between Point from google for:',
+    originLat, originLong, destinationLat, destinationLong
+  );
   return fetch(buildGetDistanceBetweenPointsUrl(originLat, originLong, destinationLat, destinationLong))
     .then(res => res.json())
     .catch((err) => {
