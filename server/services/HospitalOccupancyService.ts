@@ -7,36 +7,41 @@ export async function fillLatLongToHospitalOccupancy(
 ): Promise<HospitalOccupancy[]> {
   const filledHospitalOccupancyList = hospitalOccupancyList.map(
     async (occupancy) => {
-      const cnesId = occupancy.cnes;
-      const cnesDocument = await CnesModel.findById(cnesId);
+      try {
+        const cnesId = occupancy.cnes;
+        const cnesDocument = await CnesModel.findById(cnesId);
 
-      if (!cnesDocument) {
-        console.log(`Document not found for CNES ${cnesId}`);
+        if (!cnesDocument) {
+          console.log(`Document not found for CNES ${cnesId}`);
+          return occupancy;
+        }
+
+        const googleResponse = await GoogleMapsService.getLatLongByAddress(
+          cnesDocument.addressNumber,
+          cnesDocument.address,
+        );
+
+        const result = googleResponse.results.find((result) => {
+          const cityResponse = result.address_components.find((component) =>
+            component.types.includes("administrative_area_level_2")
+          )
+          return cityResponse?.long_name === occupancy.municipio;
+        });
+
+        if (!result) {
+          console.log(`Address not found for CNES ${cnesId}`);
+          return occupancy;
+        }    
+
+        occupancy.formattedAddress = result.formatted_address;
+        occupancy.lat = result.geometry.location.lat.toString();
+        occupancy.long = result.geometry.location.lng.toString();
+
+        return occupancy;
+      } catch (err) {
+        console.log(err)
         return occupancy;
       }
-
-      const googleResponse = await GoogleMapsService.getLatLongByAddress(
-        cnesDocument.addressNumber,
-        cnesDocument.address,
-      );
-
-      const result = googleResponse.results.find((result) => {
-        const cityResponse = result.address_components.find((component) =>
-          component.types.includes("administrative_area_level_2")
-        )
-        return cityResponse?.long_name === occupancy.municipio;
-      });
-
-      if (!result) {
-        console.log(`Address not found for CNES ${cnesId}`);
-        return occupancy;
-      }    
-
-      occupancy.formattedAddress = result.formatted_address;
-      occupancy.lat = result.geometry.location.lat.toString();
-      occupancy.long = result.geometry.location.lng.toString();
-
-      return occupancy;
     }
   )
 
@@ -51,31 +56,35 @@ export async function calculateHospitalsScore(
   
   const filledHospitalOccupancyList = hospitalOccupancyList.map(
     async (occupancy) => {
+      try {
+        if (!occupancy.lat || !occupancy.long) {
+          console.error('Empty Origin Lat/Long');
+          return occupancy;
+        }
 
-      if (!occupancy.lat || !occupancy.long) {
-        console.error('Empty Origin Lat/Long');
+        const googleResponse = await GoogleMapsService.getDistanceBetweenPoints(
+          lat,
+          long,
+          occupancy.lat,
+          occupancy.long
+        );
+
+        const UtiVacancies = occupancy.ofertaSRAGUti.valueOf() - occupancy.ocupSRAGUti.valueOf();
+        const ClinicalVacancies = occupancy.ofertaSRAGCli.valueOf() - occupancy.ocupSRAGCli.valueOf();
+        const distanceInMeters = googleResponse.rows[0].elements[0].distance.value.valueOf();
+        const distance = distanceInMeters / 1000;
+
+        const calculatedScore = 2 * UtiVacancies * ClinicalVacancies * (1/distance);
+
+        const score = calculatedScore === -0 ? 0 : calculatedScore;
+
+        occupancy.score = score;
+
+        return occupancy;
+      } catch (err) {
+        console.log(err)
         return occupancy;
       }
-
-      const googleResponse = await GoogleMapsService.getDistanceBetweenPoints(
-        lat,
-        long,
-        occupancy.lat,
-        occupancy.long
-      );
-
-      const UtiVacancies = occupancy.ofertaSRAGUti.valueOf() - occupancy.ocupSRAGUti.valueOf();
-      const ClinicalVacancies = occupancy.ofertaSRAGCli.valueOf() - occupancy.ocupSRAGCli.valueOf();
-      const distanceInMeters = googleResponse.rows[0].elements[0].distance.value.valueOf();
-      const distance = distanceInMeters / 1000;
-
-      const calculatedScore = 2 * UtiVacancies * ClinicalVacancies * (1/distance);
-
-      const score = calculatedScore === -0 ? 0 : calculatedScore;
-
-      occupancy.score = score;
-
-      return occupancy;
     }
   )
 

@@ -23,7 +23,7 @@ export async function getCnes(
   
   console.log('Requested Address from Data SUS for:', state, stateInitals, city);
 
-  const response = await fetch(
+  return fetch(
     url,
     {
       method: 'post',
@@ -38,6 +38,9 @@ export async function getCnes(
       referrerPolicy: 'no-referrer',
       body: bodyRequest
     }
-  );    
-  return response.json();
+  )
+  .then((response) => response.json())
+  .catch((err) => {
+    throw err;
+  });
 }

@@ -3,7 +3,7 @@ import express = require('express');
 import mongoose = require('mongoose');
 global.fetch = require("node-fetch");
 import scheduler = require('node-schedule');
-import atualizaDadosEstado from './controller/Scheduler'
+import atualizaDadosEstado from './models/Scheduler'
 import * as DataSusController from './controller/DataSusController';
 
 global.fetch = require("node-fetch");
@@ -35,11 +35,8 @@ app.listen(3333, function () {
 
 const listaEstados: string[] = ["SP","RJ","ES","BA","MG","PR","PA","RS"]
 
-scheduler.scheduleJob('0 * * * *', async function () {
-  listaEstados.forEach(await async function(estados){
-    await atualizaDadosEstado(estados);
-  })
-  
-})
-
-
+scheduler.scheduleJob('0 * * * *', function () {
+  listaEstados.forEach(async function(estado) {
+    await atualizaDadosEstado(estado);
+  });
+});
