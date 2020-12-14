@@ -1,6 +1,6 @@
-import { HospitalOccupancy } from "../commons/DataSusResponse"
+import { FilledHospitalOccupancy } from "../commons/DataSusResponse"
 
-export const hospitalList: HospitalOccupancy[] =
+export const hospitalList: FilledHospitalOccupancy[] =
 [
   {
     nomeCnes: "SANTA CASA DE MISERICORDIA DE ITAPIRA",
@@ -21,7 +21,11 @@ export const hospitalList: HospitalOccupancy[] =
     altas: 0,
     obitos: 0,
     ocupacaoInformada: true,
-    algumaOcupacaoInformada: true
+    algumaOcupacaoInformada: true,
+    formattedAddress: "R. São José do Paraíso, 100 - Bonsucesso, Guarulhos - SP, 07243-550, Brazil",
+    lat: "-23.4406788",
+    long: "-46.409727",
+    score: 3.1718921556667077
   },
   {
     nomeCnes: "Santa Casa de Misericórdia de São Paulo",
@@ -42,6 +46,10 @@ export const hospitalList: HospitalOccupancy[] =
     altas: 0,
     obitos: 0,
     ocupacaoInformada: true,
-    algumaOcupacaoInformada: true
+    algumaOcupacaoInformada: true,
+    formattedAddress: "Av. André Luiz, 723 - Picanço, Guarulhos - SP, 07082-050, Brazil",
+    lat: "-23.4358261",
+    long: "-46.5449278",
+    score: -3.6616623947272062
   }
 ]
