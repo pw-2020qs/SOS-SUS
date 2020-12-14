@@ -10,12 +10,25 @@ import BtnComponent from '../components/BtnComponent';
 import api from '../services/api';
 
 interface hospital {
-  nome: string,
-  endereco: string,
-  estado: string,
-  lat: number,
-  long: number,
-  CMES: string
+  algumaOcupacaoInformada: boolean
+  altas: number
+  cnes: string
+  dataNotificacaoOcupacao: string
+  estado: string
+  estadoSigla: string
+  municipio: string
+  nomeCnes: string
+  obitos: number
+  ocupHospCli: number
+  ocupHospUti: number
+  ocupSRAGCli: number
+  ocupSRAGUti: number
+  ocupacaoInformada: boolean
+  ofertaHospCli: number
+  ofertaHospUti: number
+  ofertaRespiradores: number
+  ofertaSRAGCli: number
+  ofertaSRAGUti: number
 }
 
 const MapPage: React.FC = () => {
@@ -33,18 +46,26 @@ const MapPage: React.FC = () => {
       navigator.geolocation.getCurrentPosition((position) => {
         setLat(position.coords.latitude)
         setLong(position.coords.longitude)
-        console.log(`lat: ${lat} long: ${long}`)
       })
     }
+
   }, [])
 
   useEffect(() => {
-    api.get(`chamada?lat=${lat}&long=${long}`).then(res => {
-      if (res.data === []) {
-        alert("Não conseguimos encontrar dados para sua cidade")
+    if (lat !== 0 && long !== 0) {
+      const runAPI = async () => {
+        const res = await api.get(`chamada?lat=${lat}&long=${long}`)
+        console.log(`lat=${lat}&long=${long}`);
+        if (res.data === []) {
+          alert("Não conseguimos encontrar dados para sua cidade")
+        }
+        console.log(res.data)
+        setHosps(res.data)
       }
-      setHosps(res.data)
-    })
+
+      runAPI()
+
+    }
   }, [lat, long])
 
   const [toggle, setToggle] = useState('open')
@@ -58,6 +79,41 @@ const MapPage: React.FC = () => {
     setToggle(toggleMenu(toggle))
   }
 
+  const renderHosps = () => {
+    if (hosps !== []) {
+      hosps.map((hosp: hospital) => {
+        return (
+          <HospitalCardComponent
+            key={hosp.cnes}
+            name={hosp.nomeCnes}
+            estado={hosp.estado}
+            rua={hosp.municipio}
+            latitude={lat}
+            longitude={long}
+            link1='Como chegar?'
+            link2='Copiar endereço'
+          />
+        )
+      })
+    }
+    return null;
+  }
+
+  const renderPlaceholders = () => {
+    if (hosps !== []) {
+      hosps.map((hosp: hospital) => {
+        return (
+          <Marker key={hosp.cnes} position={[lat, long]}>
+            <Popup closeButton={true} minWidth={240} maxWidth={240} className="map-popup">
+              {hosp.nomeCnes}
+            </Popup>
+          </Marker>
+        )
+      })
+    }
+    return null;
+  }
+
   return (
     <div id="page-map">
       <div id="main">
@@ -67,20 +123,7 @@ const MapPage: React.FC = () => {
           </div>
           <div className="cards">
             {
-              hosps.map((hosp: hospital) => {
-                return (
-                  <HospitalCardComponent
-                    key={hosp.CMES}
-                    name={hosp.nome}
-                    estado={hosp.estado}
-                    rua={hosp.endereco}
-                    latitude={hosp.lat}
-                    longitude={hosp.long}
-                    link1='Como chegar?'
-                    link2='Copiar endereço'
-                  />
-                )
-              })
+              renderHosps()
             }
           </div>
           <div className="gridBotao">
@@ -102,15 +145,7 @@ const MapPage: React.FC = () => {
             </Popup>
           </Marker>
           {
-            hosps.map((hosp: hospital) => {
-              return (
-                <Marker key={hosp.CMES} position={[hosp.lat, hosp.long]}>
-                  <Popup closeButton={true} minWidth={240} maxWidth={240} className="map-popup">
-                    {hosp.nome}
-                  </Popup>
-                </Marker>
-              )
-            })
+            renderPlaceholders()
           }
         </MapComponent>
       </div>
