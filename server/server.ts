@@ -2,17 +2,18 @@ import cors = require('cors');
 import express = require('express');
 import mongoose = require('mongoose');
 global.fetch = require("node-fetch");
-import { hospitalList } from './constants/hospitalList';
-import retornaListaCNES from './controller/DataSUSService'
-const cacheModel = require('./controller/Cache')
 import scheduler = require('node-schedule');
 import atualizaDadosEstado from './controller/Scheduler'
+import * as DataSusController from './controller/DataSusController';
+
+global.fetch = require("node-fetch");
+require('dotenv').config();
 
 const app = express();
 
 const uri: string = "mongodb://sossusadmin:rYHr9CR5pmLk!EP@dbh11.mlab.com:27117/sossus";
 
-app.use(cors())
+app.use(cors());
 
 mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
   if (err) {
@@ -22,47 +23,11 @@ mongoose.connect(uri,{useNewUrlParser: true }, (err: any) => {
   }
 });
 
-app.get('/chamada', (req, res) => {
-  console.log(`lat: ${req.query.lat} long: ${req.query.long}`)
-  res.send(hospitalList)
-})
+app.get('/', DataSusController.healthCheck);
 
-app.get('/testeBancoConsulta', async (req, res) => {
-  const resultado = await cacheModel.find({idLocalizacao: req.query.id})
+app.get('/chamada', DataSusController.getCensList);
 
-  try{
-    res.send(resultado)
-  } catch (err) {
-    res.status(500).send(err);
-  }    
-})
-
-app.get('/testeBancoGrava', async (req, res) => {
-    const payloadGrava = new cacheModel({idLocalizacao: req.query.id, hospitalData: hospitalList})
-
-    try{
-      await payloadGrava.save();
-      res.send(payloadGrava);
-    } catch (err) {
-      res.status(500).send(err);
-    }    
-})
-
-app.get('/', function (req, res: any) {
-  res.send('Hello World!');
-});
-
-app.get('/teste2', async function (req, res) {
-  res.send(await retornaListaCNES(["2077418", "2077531"]));
-});
-
-app.get('/teste', function (req, res) {
-  if (req.query.cep == "123") {
-    res.send("Erro")
-  }
-  console.log(hospitalList)
-  res.send(hospitalList);
-});
+app.get('/test', DataSusController.test);
 
 app.listen(3333, function () {
   console.log('App is listening on port 3333!');

@@ -1,6 +1,6 @@
 const fs = require("fs");
 const fastcsv = require("fast-csv");
-var MongoClient = require('mongodb').MongoClient,
+const MongoClient = require('mongodb').MongoClient,
   f = require('util').format,
   assert = require('assert');
 
@@ -12,9 +12,10 @@ const authMechanism = 'DEFAULT';
 const url = f('mongodb://%s:%s@dbh11.mlab.com:27117/sossus?authMechanism=%s',
   user, password, authMechanism);
 
-let stream = fs.createReadStream("db/data/database_cnes.csv");
-let csvData = [];
-let csvStream = fastcsv
+const path = __dirname.replace('script', 'data')
+const stream = fs.createReadStream(path.concat("/database_cnes.csv"));
+const csvData = [];
+const csvStream = fastcsv
   .parse({ delimiter: ';' })
   .on("data", function(data) {
     csvData.push({
@@ -50,15 +51,18 @@ let csvStream = fastcsv
         client
           .db("sossus")
           .collection("cnes")
-          .insertMany(csvData, (err, res) => {
-            if (err) throw err;
+          .insertMany(
+            csvData,
+            {
+              ordered: false
+            },
+            (err, res) => {
+              if (err) throw err;
 
-            console.log(`Inserted: ${res.insertedCount} rows`);
+              console.log(`Inserted: ${res.insertedCount} rows`);
+              client.close();
+              console.log("Finished!");
           });
-
-        console.log("Finished!");
-
-        client.close();
       }
     );
   });

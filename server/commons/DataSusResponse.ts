@@ -1,3 +1,29 @@
+export type FilledHospitalOccupancy = {
+  estado: String
+  estadoSigla: String
+  municipio: String
+  cnes: String
+  nomeCnes: String
+  dataNotificacaoOcupacao: String
+  ofertaRespiradores: Number
+  ofertaHospCli: Number
+  ofertaHospUti: Number
+  ofertaSRAGCli: Number
+  ofertaSRAGUti: Number
+  ocupHospCli: Number
+  ocupHospUti: Number
+  ocupSRAGCli: Number
+  ocupSRAGUti: Number
+  altas: Number
+  obitos: Number
+  ocupacaoInformada: Boolean
+  algumaOcupacaoInformada: Boolean
+  lat: String
+  long: String
+  formattedAddress: String
+  score: number
+}
+
 export type HospitalOccupancy = {
   estado: String
   estadoSigla: String
@@ -21,6 +47,7 @@ export type HospitalOccupancy = {
   lat?: String
   long?: String
   formattedAddress?: String
+  score?: Number
 }
 
 export type HospitalUnit = {
